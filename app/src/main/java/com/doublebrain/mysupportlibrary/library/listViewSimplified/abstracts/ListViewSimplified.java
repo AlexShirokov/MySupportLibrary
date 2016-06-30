@@ -1,4 +1,4 @@
-package com.doublebrain.mysupportlibrary.abstracts;
+package com.doublebrain.mysupportlibrary.library.listViewSimplified.abstracts;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,48 +8,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * Created by AlexShredder on 29.06.2016.
  */
 public abstract class ListViewSimplified extends ListView{
 
-    private int listItemID, textViewID1, textViewID2;
-    private Context context;
+    private int listItemID;
     private List<?> itemsList;
     private LVAdapter adapter;
 
     public ListViewSimplified(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
     }
 
     public ListViewSimplified(Context context) {
         super(context);
-        this.context = context;
     }
 
     public ListViewSimplified(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
     }
 
     public List getItemsList() {
         return itemsList;
     }
 
-    public void initAdapter(int listItemID, int textViewID1, int textViewID2, List<?> itemsList){
+    public void init(int listItemID, List<?> itemsList){
         this.itemsList = itemsList;
-        this.textViewID1 = textViewID1;
-        this.textViewID2 = textViewID2;
         this.listItemID = listItemID;
-        adapter = new LVAdapter(context,listItemID,textViewID1,itemsList);
+        adapter = new LVAdapter(getContext(),listItemID,itemsList);
         this.setAdapter(adapter);
+
         if (itemsList instanceof LVList) ((LVList) itemsList).setListViewSimplified(this);
 
     }
@@ -60,24 +56,35 @@ public abstract class ListViewSimplified extends ListView{
 
     private class LVAdapter extends ArrayAdapter{
 
-        public LVAdapter(Context context, int resource, int textViewResourceId, List<?> objects) {
-            super(context, resource, textViewResourceId, objects);
+        public LVAdapter(Context context, int resource, List<?> objects) {
+            super(context, resource, objects);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
-
+            ViewHolder viewHolder;
             if (row == null) {
-                LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+                LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
                 row = inflater.inflate(listItemID, parent, false);
-            }
 
-            TextView textView1 = (TextView) row.findViewById(textViewID1);
+                viewHolder = new ViewHolder();
+                viewHolder.views = new HashMap<>();
 
-            TextView textView2 = (TextView) row.findViewById(textViewID2);
+                Map<String, Integer> widgets = fillListItemWidgetsNameAndID();
+                for (Map.Entry<String,Integer> entry: widgets.entrySet())
+                    viewHolder.views.put(entry.getKey(),row.findViewById(entry.getValue()));
 
-            processView(row,textView1,textView2,position);
+                row.setTag(viewHolder);
+
+            } else viewHolder = (ViewHolder) row.getTag();
+
+
+            /*TextView textView1 = (TextView) row.findViewById(textViewID1);
+
+            TextView textView2 = (TextView) row.findViewById(textViewID2);*/
+
+            processView(row,viewHolder,itemsList,position);
 
             return row;
 
@@ -85,7 +92,18 @@ public abstract class ListViewSimplified extends ListView{
 
     }
 
-    protected abstract void processView(View row, TextView textView1, TextView textView2, int position);
+    protected abstract void processView(View row, ViewHolder viewHolder, List<?> itemsList, int position);
+
+    protected abstract Map<String,Integer> fillListItemWidgetsNameAndID();
+
+    protected static class ViewHolder {
+        Map<String,View> views;
+
+        public View getView(String name) {
+            return views.get(name);
+        }
+    }
+
 
     public static class LVList<T> extends ArrayList<T> {
 
@@ -166,5 +184,6 @@ public abstract class ListViewSimplified extends ListView{
             return result;
         }
     }
+
 
 }

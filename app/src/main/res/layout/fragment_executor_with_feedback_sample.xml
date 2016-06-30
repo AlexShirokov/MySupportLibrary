@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.fragments.FragmentExecutorWithFeedbackSample">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fragment ExecutorWithFeedbackSample"
+        android:gravity="center_horizontal"
+        android:id="@+id/textView2" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:foreground="@color/colorAccent"
+        android:progress="@android:integer/config_mediumAnimTime"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start jobs"
+        android:id="@+id/buttonDoJob"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <com.doublebrain.mysupportlibrary.models.ListViewSimplifiedSample
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewJobsResult"
+        android:layout_below="@+id/buttonDoJob"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

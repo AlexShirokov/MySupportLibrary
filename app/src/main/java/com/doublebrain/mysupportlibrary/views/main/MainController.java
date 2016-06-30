@@ -10,7 +10,8 @@ import android.widget.Spinner;
 
 import com.doublebrain.mysupportlibrary.R;
 import com.doublebrain.mysupportlibrary.views.fragments.FragmentListViewSample;
-import com.doublebrain.mysupportlibrary.views.fragments.Fragment2;
+import com.doublebrain.mysupportlibrary.views.fragments.FragmentExecutorWithFeedbackSample;
+import com.doublebrain.mysupportlibrary.views.fragments.FragmentRecyclerViewSample;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +24,13 @@ public class MainController {
     private static AppCompatActivity mActivity;
     private static MainController instance;
     private FragmentListViewSample fragmentListViewSample;
-    private Fragment2 frag2;
+    private FragmentExecutorWithFeedbackSample fragmentExecutorWithFeedbackSample;
+    private FragmentRecyclerViewSample fragmentRecyclerViewSample;
+
     private int currentFragment;
     private final int LISTVIEW = 0;
-    private final int FRAGMENT2 = 1;
+    private final int EWF = 1;
+    private final int RECYCLER = 2;
 
 
     private MainController(){
@@ -52,7 +56,8 @@ public class MainController {
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
         categories.add("ListView sample");
-        categories.add("Frag2");
+        categories.add("ExecutorWithFeedback sample");
+        categories.add("RecyclerView sample");
         // Creating adapter for spinner
         final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, R.layout.spinner_item, categories);
         // Drop down layout style - list view with radio button
@@ -85,9 +90,13 @@ public class MainController {
                 if (fragmentListViewSample == null) fragmentListViewSample = new FragmentListViewSample();
                 cur = fragmentListViewSample;
                 break;
-            case FRAGMENT2:
-                if (frag2==null) frag2 = new Fragment2();
-                cur = frag2;
+            case EWF:
+                if (fragmentExecutorWithFeedbackSample ==null) fragmentExecutorWithFeedbackSample = new FragmentExecutorWithFeedbackSample();
+                cur = fragmentExecutorWithFeedbackSample;
+                break;
+            case RECYCLER:
+                if (fragmentRecyclerViewSample == null) fragmentRecyclerViewSample = new FragmentRecyclerViewSample();
+                cur = fragmentRecyclerViewSample;
                 break;
 
         }

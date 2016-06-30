@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.fragments.FragmentListViewSample">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recycler view sample"
+        android:id="@+id/textView_frag1"
+        android:gravity="center_horizontal" />
+
+    <com.doublebrain.mysupportlibrary.models.RecyclerViewSimplifiedSample
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/RecyclerView"
+        android:layout_gravity="center"
+        android:layout_below="@+id/button_frag1"
+        android:layout_alignParentBottom="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add line"
+        android:id="@+id/button_frag1"
+        android:layout_below="@+id/textView_frag1"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
+
+

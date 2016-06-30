@@ -1,37 +1,37 @@
 package com.doublebrain.mysupportlibrary.models;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.doublebrain.mysupportlibrary.R;
-import com.doublebrain.mysupportlibrary.library.listViewSimplified.abstracts.ListViewSimplified;
+import com.doublebrain.mysupportlibrary.library.recyclerViewSimplified.RecyclerViewSimplified;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by AlexShredder on 29.06.2016.
+ * Created by AlexShredder on 30.06.2016.
  */
-public class ListViewSimplifiedSample extends ListViewSimplified {
-
-    public ListViewSimplifiedSample(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    public ListViewSimplifiedSample(Context context) {
+public class RecyclerViewSimplifiedSample extends RecyclerViewSimplified{
+    public RecyclerViewSimplifiedSample(Context context) {
         super(context);
     }
 
-    public ListViewSimplifiedSample(Context context, AttributeSet attrs) {
+    public RecyclerViewSimplifiedSample(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
+    public RecyclerViewSimplifiedSample(Context context, @Nullable AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
     @Override
-    protected void processView(View row, ViewHolder viewHolder, final List<?> itemsList, int position) {
+    protected void processView(ViewHolder viewHolder, final List<?> itemsList, int position) {
         final ListItem listItem = (ListItem) itemsList.get(position);
         TextView textView1 = (TextView) viewHolder.getView("Line1");
         TextView textView2 = (TextView) viewHolder.getView("Line2");
@@ -43,9 +43,9 @@ public class ListViewSimplifiedSample extends ListViewSimplified {
             @Override
             public void onClick(View view) {
                 itemsList.remove(listItem);
+                notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
@@ -56,5 +56,4 @@ public class ListViewSimplifiedSample extends ListViewSimplified {
         result.put("Button",R.id.imageButtonTrash);
         return result;
     }
-
 }
